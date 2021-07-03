@@ -173,6 +173,8 @@ git push --force
 
   [remove env file from git](https://gist.github.com/gjerokrsteski/e4a10352448158ba827493eb116cda51)
 
+  [원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기](http://melonicedlatte.com/programming/2019/04/20/031700.html)
+
   
 
 
