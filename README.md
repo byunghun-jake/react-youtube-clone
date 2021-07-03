@@ -62,7 +62,7 @@ query
 - API
   - [x] getMostPopularVideos
   - [x] getSearchResults
-  - [ ] getVideo
+  - [x] getVideo
 
 
 
@@ -70,7 +70,7 @@ query
   - [x] TheHeader
   - [x] Videos
   - [x] VideoItem
-  - [ ] VideoDetail
+  - [x] VideoDetail
 
 
 
@@ -126,6 +126,72 @@ console.log(process.env.API_KEY)			// undefined
 또한, dotenv의 값을 변경했다면 서버를 재시작해주어야 한다는 점!
 
 
+
+## 문제
+
+
+
+### 1. 원격저장소에 올라간 내 .env 파일
+
+youtubeAPI key를 코드에 넣을 수는 없어서, `.env` 파일에 담아 관리하였는데... 이런... `.env` 파일이 깃허브에 올라가버렸다.
+
+언제 연동했는지 모르겠지만 Gitguardian이 친절하게 내 실수를 알려줬고, 바로 Private로 전환했다.
+
+![image-20210703181226008](README.assets/image-20210703181226008.png)
+
+퍼블릭으로 돌리기 위해서 어떤 과정을 거쳐야 할까?
+
+1. 커밋 내역에 남은 .env 파일의 흔적을 지우기
+2. 원격 저장소에 올라간 .env 파일 지우기
+3. .env를 gitignore에 등록하기
+
+
+
+```bash
+git rm -r --cached .env
+git add .gitignore
+git commit -m 'untracking .env'
+git push github master
+```
+
+> Only removes in the most recent unpushed commit.
+>
+> Not from my whole history.
+
+
+
+```bash
+git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch .env" HEAD
+git push --force
+```
+
+
+
+
+
+- 참고
+
+  [remove env file from git](https://gist.github.com/gjerokrsteski/e4a10352448158ba827493eb116cda51)
+
+  
+
+
+
+---
+
+
+
+## 결과
+
+
+
+### Github
+
+https://github.com/byunghun-jake/react-youtube-clone
+
+
+
+### Netlify
 
 
 
