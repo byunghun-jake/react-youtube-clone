@@ -1,33 +1,23 @@
-import React, { Component } from "react"
+import React from "react"
+import VideoItem from "./videoItem"
 
-class Videos extends Component {
-  render() {
-    return (
-      <>
-        <h1>{this.props.sectionTitle}</h1>
-        <ul className="popular-videos">
-          {this.props.videos.map((video) => {
-            return (
-              <li className="popular-video-item" key={video.etag}>
-                <div className="video-item-thumbnail-wrapper">
-                  <img
-                    className="video-item-thumbnail"
-                    src={video.snippet.thumbnails.high.url}
-                    alt={`${video.snippet.title} 썸네일`}
-                  />
-                </div>
-                <div>
-                  <p
-                    dangerouslySetInnerHTML={{ __html: video.snippet.title }}
-                  ></p>
-                </div>
-              </li>
-            )
-          })}
-        </ul>
-      </>
-    )
-  }
+const Videos = ({ sectionTitle, videos, onSelectVideo }) => {
+  return (
+    <>
+      <h1>{sectionTitle}</h1>
+      <ul className="video-list">
+        {videos.map((video) => {
+          return (
+            <VideoItem
+              video={video}
+              onSelectVideo={onSelectVideo}
+              key={video.etag}
+            />
+          )
+        })}
+      </ul>
+    </>
+  )
 }
 
 export default Videos

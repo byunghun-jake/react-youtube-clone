@@ -44,10 +44,11 @@ query
 
 ```
 - home
-	- header
-	- Videos (인기 비디오 & 검색 비디오)
+	- TheHeader
+	- PopularVideos (인기 비디오 & 검색 비디오)
 		- videoItem
-	- searchedVideos
+	- SearchedVideos
+		- videoItem
 	- videoDetail
 		- videoPlayer
 		- relatedVideos
@@ -58,8 +59,27 @@ query
 
 ### 4. 작업!
 
-- [ ] TheHeader
-- [ ] Videos
+- API
+  - [x] getMostPopularVideos
+  - [x] getSearchResults
+  - [ ] getVideo
+
+
+
+- Component
+  - [x] TheHeader
+  - [x] Videos
+  - [x] VideoItem
+  - [ ] VideoDetail
+
+
+
+- Function
+  - [x] Search
+
+
+
+
 
 #### 컴포넌트의 생명주기 중 어디에서 AJAX 호출을 할 수 있나요?
 
@@ -75,7 +95,35 @@ lodash의 unescape 메서드를 사용했을 때와 같은 결과가 나올 수 
 
 
 
+#### Videos에서 VideoDetail로 이동하는 조건은?
 
+- 선택한 video가 없음 => Videos
+- 선택한 video가 있음 => VideoDetail
+
+
+
+#### dotEnv
+
+Youtube API Key는 외부에 노출되면 안되니, dotEnv로 관리합니다.
+
+[참고 블로그](https://www.daleseo.com/js-dotenv/)
+
+리액트에서는 dotenv의 key값에 prefix를 붙여주어야 한다는 것을 알 수 있었다.
+
+```
+REACT_APP_API_KEY=hi
+API_KEY=ki
+```
+
+```js
+require("dotenv").config()
+console.log(process.env.REACT_APP_API_KEY)	// hi
+console.log(process.env.API_KEY)			// undefined
+```
+
+
+
+또한, dotenv의 값을 변경했다면 서버를 재시작해주어야 한다는 점!
 
 
 

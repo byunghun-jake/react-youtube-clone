@@ -1,30 +1,43 @@
 import React, { Component } from "react"
 import "axios"
 import "./app.css"
-import { getMostPopular, getSearchResult } from "./api"
+import { getPopularVideos, getSearchResults, getVideo } from "./api"
 import Videos from "./components/videos"
 import TheHeader from "./components/TheHeader"
+import VideoDetail from "./components/VideoDetail"
 
 class App extends Component {
-  state = {
-    searchQuery: "",
-    popularVideos: [],
-    searchedVideos: [],
-    pageMode: "popular",
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchQuery: "",
+      popularVideos: [],
+      searchedVideos: [],
+      selectedVideo: null,
+    }
   }
+
+  handleLinkToHome = () => {
+    this.setState({
+      searchedVideos: [],
+      searchQuery: "",
+      selectedVideo: null,
+    })
+  }
+
   handleSearchInput = (event) => {
     this.setState({
       searchQuery: event.target.value,
     })
   }
+
   handleSearch = async (event) => {
     event.preventDefault()
     try {
-      const res = await getSearchResult(this.state.searchQuery)
-      console.log(res)
+      const res = await getSearchResults(this.state.searchQuery)
       this.setState({
         searchedVideos: res.data.items,
-        pageMode: "search",
+        selectedVideo: null,
       })
     } catch (error) {
       console.error(error)
@@ -32,10 +45,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    console.log("componentDidMount")
     try {
-      const res = await getMostPopular()
-      console.log(res)
+      const res = await getPopularVideos()
       this.setState({
         popularVideos: res.data.items,
       })
@@ -44,18 +55,45 @@ class App extends Component {
     }
   }
 
+  handleSelectVideo = async (id) => {
+    try {
+      getVideo(id).then((res) => {
+        this.setState({
+          selectedVideo: res.data.items[0],
+          searchQuery: "",
+        })
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   render() {
+    const { selectedVideo, popularVideos, searchedVideos, searchQuery } =
+      this.state
     return (
       <>
         <TheHeader
           onSearchInput={this.handleSearchInput}
           onSearch={this.handleSearch}
+          onClickHome={this.handleLinkToHome}
+          searchQuery={searchQuery}
         />
         <main className="container">
-          {this.state.pageMode === "popular" ? (
-            <Videos sectionTitle="인기✨" videos={this.state.popularVideos} />
+          {selectedVideo ? (
+            <VideoDetail video={selectedVideo} />
+          ) : searchedVideos && searchedVideos.length > 1 ? (
+            <Videos
+              sectionTitle="검색"
+              videos={searchedVideos}
+              onSelectVideo={this.handleSelectVideo}
+            />
           ) : (
-            <Videos sectionTitle="검색" videos={this.state.searchedVideos} />
+            <Videos
+              sectionTitle="인기✨"
+              videos={popularVideos}
+              onSelectVideo={this.handleSelectVideo}
+            />
           )}
         </main>
       </>

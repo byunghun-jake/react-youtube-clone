@@ -1,3 +1,9 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -8,6 +14,12 @@
 
 .header__logo {
   font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in;
+}
+
+.header__logo:hover {
+  color: red;
 }
 
 .header__search {
@@ -43,7 +55,7 @@
   margin: 0 auto;
 }
 
-.popular-videos {
+.video-list {
   display: grid;
   gap: 1.5rem;
   list-style: none;
@@ -58,7 +70,7 @@
   .container {
     max-width: 640px;
   }
-  .popular-videos {
+  .video-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -67,7 +79,7 @@
   .container {
     max-width: 768px;
   }
-  .popular-videos {
+  .video-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -76,7 +88,7 @@
   .container {
     max-width: 1024px;
   }
-  .popular-videos {
+  .video-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -85,14 +97,19 @@
   .container {
     max-width: 1280px;
   }
-  .popular-videos {
+  .video-list {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
-.popular-video-item {
+.video-item {
   position: relative;
   list-style: none;
+  cursor: pointer;
+}
+
+.video-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .video-item-thumbnail-wrapper {
@@ -108,4 +125,46 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+/* VideoDetail.jsx */
+
+.detail-container {
+  display: grid;
+  margin: 3rem 0;
+  gap: 1rem;
+}
+
+.video {
+  display: grid;
+  gap: 1rem;
+}
+
+.video .player-wrapper {
+  position: relative;
+  padding-top: 56%;
+}
+
+.video .player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video .infos {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.video .infos .title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .detail-container {
+    grid-template-columns: 1fr 240px;
+  }
 }
