@@ -57,11 +57,10 @@ class App extends Component {
 
   handleSelectVideo = async (id) => {
     try {
-      getVideo(id).then((res) => {
-        this.setState({
-          selectedVideo: res.data.items[0],
-          searchQuery: "",
-        })
+      const res = await getVideo(id)
+      this.setState({
+        selectedVideo: res.data.items[0],
+        searchQuery: "",
       })
     } catch (error) {
       console.log(error)

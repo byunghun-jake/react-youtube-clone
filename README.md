@@ -148,10 +148,10 @@ youtubeAPI key를 코드에 넣을 수는 없어서, `.env` 파일에 담아 관
 
 
 ```bash
-git rm -r --cached .env
-git add .gitignore
-git commit -m 'untracking .env'
-git push github master
+$ git rm -r --cached .env
+$ git add .gitignore
+$ git commit -m 'untracking .env'
+$ git push github master
 ```
 
 > Only removes in the most recent unpushed commit.
@@ -161,9 +161,29 @@ git push github master
 
 
 ```bash
-git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch .env" HEAD
-git push --force
+$ git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch .env" HEAD
+$ git push --force
 ```
+
+> "모든 브랜치에서 .env가 관련된 내용은 모두 지워줘"
+
+
+
+
+
+`filter-branch` 명령어를 실행했을 때, 다음과 같은 에러가 발생할 수 있습니다.
+
+```bash
+A previous backup already exists in refs/original/
+```
+
+이 경우에는 다음 명령어를 통해 백업 내용을 지워주세요.
+
+```bash
+$ git update-ref -d refs/original/refs/heads/master
+```
+
+
 
 
 
@@ -175,7 +195,7 @@ git push --force
 
   [원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기](http://melonicedlatte.com/programming/2019/04/20/031700.html)
 
-  
+  [Git에서 파일 완전삭제](https://www.dsaint31.me/etc/etc-git-filter-branch/)
 
 
 

@@ -10,7 +10,7 @@ const VideoDetail = ({ video }) => {
               className="player"
               title="YoutubePlayer"
               src={`https://www.youtube.com/embed/${video.id}`}
-              frameborder="0"
+              frameBorder="0"
             ></iframe>
           </div>
         </div>
