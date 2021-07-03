@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# Youtube - React (with. dream-coding)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## 작업 순서
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1. react app 생성
 
-### `yarn test`
+```bash
+$ npx create-react-app youtube-react
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Youtube API 등록
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+이전 Vue 실습 때, 신청했던 youtube api를 그대로 사용
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Postman
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> API가 정상적으로 동작하는지 확인
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+base_url: `https://www.googleapis.com/youtube/v3/search`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+query
 
-## Learn More
+- 공통
+  - part: `snippet`
+  - type: `video`
+  - key: `비밀이야!`
+  - maxResults: `20`
+- 검색
+  - q: `bts`
+- 인기 영상
+  - chart: `mostPopular`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### 3. 컴포넌트 설계
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+- home
+	- header
+	- Videos (인기 비디오 & 검색 비디오)
+		- videoItem
+	- searchedVideos
+	- videoDetail
+		- videoPlayer
+		- relatedVideos
+		
+```
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### 4. 작업!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [ ] TheHeader
+- [ ] Videos
 
-### Advanced Configuration
+#### 컴포넌트의 생명주기 중 어디에서 AJAX 호출을 할 수 있나요?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+AJAX 호출을 통한 데이터는 생명주기 메서드 중 [`componentDidMount`](https://ko.reactjs.org/docs/react-component.html#mounting) 안에 추가되어야 합니다. 이는 데이터를 받아 올 때 `setState`를 통하여 컴포넌트를 업데이트하기 위함입니다.
 
-### Deployment
+[참고링크](https://ko.reactjs.org/docs/faq-ajax.html#where-in-the-component-lifecycle-should-i-make-an-ajax-call)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### dangerouslySetInnerHTML
+
+lodash의 unescape 메서드를 사용했을 때와 같은 결과가 나올 수 있도록 했음
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,38 +1,111 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  background-color: lightgray;
+  padding: 0.5rem 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.header__logo {
+  font-size: 2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.header__search {
+  display: flex;
+}
+
+.header__search__input {
+  padding: 0.5rem 1rem;
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.header__search__btn {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 1rem;
+  border: none;
+  /* outline: none; */
+  cursor: pointer;
+}
+
+.header__search__btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* .header__search__btn:focus {
+  background-color: gray;
+} */
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.popular-videos {
+  display: grid;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .header__search {
+    width: 50%;
   }
-  to {
-    transform: rotate(360deg);
+  .container {
+    max-width: 640px;
   }
+  .popular-videos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+  .popular-videos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+  .popular-videos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+  .popular-videos {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.popular-video-item {
+  position: relative;
+  list-style: none;
+}
+
+.video-item-thumbnail-wrapper {
+  position: relative;
+  padding-top: 56.3%;
+}
+
+.video-item-thumbnail {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
