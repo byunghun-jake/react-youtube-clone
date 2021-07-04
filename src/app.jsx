@@ -80,7 +80,11 @@ class App extends Component {
         />
         <main className="container">
           {selectedVideo ? (
-            <VideoDetail video={selectedVideo} />
+            <VideoDetail
+              video={selectedVideo}
+              popularVideos={popularVideos}
+              onSelectVideo={this.handleSelectVideo}
+            />
           ) : searchedVideos && searchedVideos.length > 1 ? (
             <Videos
               sectionTitle="검색"

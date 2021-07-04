@@ -2,7 +2,10 @@ import React from "react"
 
 const VideoItem = ({ video, onSelectVideo }) => {
   return (
-    <li className="video-item" onClick={() => onSelectVideo(video.id.videoId)}>
+    <li
+      className="video-item"
+      onClick={() => onSelectVideo(video.id.videoId || video.id)}
+    >
       <div className="video-item-thumbnail-wrapper">
         <img
           className="video-item-thumbnail"

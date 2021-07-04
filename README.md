@@ -14,7 +14,9 @@ $ npx create-react-app youtube-react
 
 
 
-### 2. Youtube API 등록
+### 2. API
+
+#### Youtube API
 
 이전 Vue 실습 때, 신청했던 youtube api를 그대로 사용
 
@@ -37,6 +39,30 @@ query
   - q: `bts`
 - 인기 영상
   - chart: `mostPopular`
+
+
+
+#### 설계
+
+```js
+// api.js
+const youtubeAPI = axios.create({
+    baseURL: "https://www.googleapis.com/youtube/v3/",
+    params: {
+        key: API_KEY,
+        part: "snippet",
+        type: "video",
+    },
+})
+```
+
+
+
+| url            | 목적           |
+| -------------- | -------------- |
+| search/        | 영상 검색      |
+| videos/        | 인기 영상 목록 |
+| videos?id={id} | 특정 영상 정보 |
 
 
 
@@ -196,6 +222,28 @@ $ git update-ref -d refs/original/refs/heads/master
   [원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기](http://melonicedlatte.com/programming/2019/04/20/031700.html)
 
   [Git에서 파일 완전삭제](https://www.dsaint31.me/etc/etc-git-filter-branch/)
+
+
+
+## 배포
+
+
+
+### Netlify
+
+- 환경변수 등록하기
+
+  ![image-20210703185110709](README.assets/image-20210703185110709.png)
+
+
+
+publish directory를 ./bulid로 설정해주지 않아서 오류가 발생했었다.
+
+
+
+- 참고
+
+  [How to Deploy a react app with netlify set up continuous deployment via github](https://levelup.gitconnected.com/how-to-deploy-a-react-app-with-netlify-set-up-continuous-deployment-via-github-53859dcdaf40)
 
 
 

@@ -15,10 +15,11 @@ const youtubeAPI = axios.create({
 })
 
 export const getPopularVideos = () =>
-  youtubeAPI.get("search", {
+  youtubeAPI.get("videos", {
     params: {
       chart: "mostPopular",
       maxResults: 20,
+      regionCode: "KR",
     },
   })
 
