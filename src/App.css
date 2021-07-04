@@ -1,3 +1,12 @@
+.main {
+  position: relative;
+  display: flex;
+}
+
+p {
+  margin: 0;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -6,9 +15,13 @@ ul {
 
 .header {
   display: flex;
+  /* position: sticky; */
+  top: 0;
+  left: 0;
+  z-index: 100;
   align-items: center;
   justify-content: space-between;
-  background-color: lightgray;
+  background-color: lightcoral;
   padding: 0.5rem 1rem;
 }
 
@@ -52,7 +65,8 @@ ul {
 
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 4rem;
+  padding: 0 1rem;
 }
 
 .video-list {
@@ -106,6 +120,8 @@ ul {
   position: relative;
   list-style: none;
   cursor: pointer;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .video-item:hover {
@@ -114,7 +130,12 @@ ul {
 
 .video-item-thumbnail-wrapper {
   position: relative;
-  padding-top: 56.3%;
+  padding-top: 50%;
+  overflow: hidden;
+}
+
+.video-item:hover .video-item-thumbnail {
+  transform: scale(1.1);
 }
 
 .video-item-thumbnail {
@@ -125,6 +146,17 @@ ul {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  transition: all 0.3s ease-out;
+}
+
+.video-item__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  max-height: 44px;
 }
 
 /* VideoDetail.jsx */
@@ -224,4 +256,51 @@ ul {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+/* aside */
+.aside {
+  flex-basis: 80px;
+  min-width: 80px;
+  height: calc(100vh);
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: lightgrey;
+}
+
+.aside .label {
+  text-align: center;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.aside .channel {
+  display: grid;
+  justify-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease-out;
+}
+
+.aside .channel:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.aside .channel:hover .channel__thumbnail-wrapper {
+  transform: scale(1.1);
+}
+
+.channel__thumbnail-wrapper {
+  width: 60px;
+  transition: all 0.2s ease-out;
+}
+
+.channel-thumbnail {
+  border-radius: 50%;
+  width: 100%;
+}
+
+.channel-title {
+  font-weight: 700;
 }

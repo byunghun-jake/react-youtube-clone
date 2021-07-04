@@ -10,7 +10,6 @@ const youtubeAPI = axios.create({
   params: {
     key: API_KEY,
     part: "snippet",
-    type: "video",
   },
 })
 
@@ -20,19 +19,32 @@ export const getPopularVideos = () =>
       chart: "mostPopular",
       maxResults: 20,
       regionCode: "KR",
+      type: "video",
     },
   })
 
-export const getSearchResults = (q) =>
+export const searchVideos = (q) =>
   youtubeAPI.get("search", {
     params: {
+      type: "video",
+      maxResults: 30,
       q,
+    },
+  })
+
+export const searchVideosByChannel = (channelId) =>
+  youtubeAPI.get("search", {
+    params: {
+      type: "video",
+      maxResults: 30,
+      channelId,
     },
   })
 
 export const getVideo = (id) =>
   youtubeAPI.get("videos", {
     params: {
+      type: "video",
       id,
     },
   })

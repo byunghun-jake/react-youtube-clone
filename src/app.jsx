@@ -1,10 +1,16 @@
 import React, { Component } from "react"
 import "axios"
 import "./app.css"
-import { getPopularVideos, getSearchResults, getVideo } from "./api"
+import {
+  getPopularVideos,
+  searchVideos,
+  searchVideosByChannel,
+  getVideo,
+} from "./api"
 import Videos from "./components/videos"
 import TheHeader from "./components/TheHeader"
 import VideoDetail from "./components/VideoDetail"
+import TheAside from "./components/TheAside"
 
 class App extends Component {
   constructor(props) {
@@ -31,10 +37,10 @@ class App extends Component {
     })
   }
 
-  handleSearch = async (event) => {
+  handleSearchVideos = async (event) => {
     event.preventDefault()
     try {
-      const res = await getSearchResults(this.state.searchQuery)
+      const res = await searchVideos(this.state.searchQuery)
       this.setState({
         searchedVideos: res.data.items,
         selectedVideo: null,
@@ -44,11 +50,24 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  handleSearchVideosByChannelTitle = async (channelTitle) => {
     try {
-      const res = await getPopularVideos()
+      const res = await searchVideos(channelTitle)
       this.setState({
-        popularVideos: res.data.items,
+        searchedVideos: res.data.items,
+        selectedVideo: null,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  handleSearchVideosByChannel = async (channelId) => {
+    try {
+      const res = await searchVideosByChannel(channelId)
+      this.setState({
+        searchedVideos: res.data.items,
+        selectedVideo: null,
       })
     } catch (error) {
       console.error(error)
@@ -67,6 +86,21 @@ class App extends Component {
     }
   }
 
+  async componentDidMount() {
+    try {
+      const res = await getPopularVideos()
+      this.setState({
+        popularVideos: res.data.items,
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  componentDidUpdate() {
+    window.scrollTo({ behavior: "smooth", top: 0 })
+  }
+
   render() {
     const { selectedVideo, popularVideos, searchedVideos, searchQuery } =
       this.state
@@ -74,30 +108,36 @@ class App extends Component {
       <>
         <TheHeader
           onSearchInput={this.handleSearchInput}
-          onSearch={this.handleSearch}
+          onSearch={this.handleSearchVideos}
           onClickHome={this.handleLinkToHome}
           searchQuery={searchQuery}
         />
-        <main className="container">
-          {selectedVideo ? (
-            <VideoDetail
-              video={selectedVideo}
-              popularVideos={popularVideos}
-              onSelectVideo={this.handleSelectVideo}
-            />
-          ) : searchedVideos && searchedVideos.length > 1 ? (
-            <Videos
-              sectionTitle="검색"
-              videos={searchedVideos}
-              onSelectVideo={this.handleSelectVideo}
-            />
-          ) : (
-            <Videos
-              sectionTitle="인기✨"
-              videos={popularVideos}
-              onSelectVideo={this.handleSelectVideo}
-            />
-          )}
+        <main className="main">
+          <TheAside
+            onSearchVideosByChannel={this.handleSearchVideosByChannel}
+            onSearchVideos={this.handleSearchVideosByChannelTitle}
+          />
+          <section className="container">
+            {selectedVideo ? (
+              <VideoDetail
+                video={selectedVideo}
+                popularVideos={popularVideos}
+                onSelectVideo={this.handleSelectVideo}
+              />
+            ) : searchedVideos && searchedVideos.length > 1 ? (
+              <Videos
+                sectionTitle="검색"
+                videos={searchedVideos}
+                onSelectVideo={this.handleSelectVideo}
+              />
+            ) : (
+              <Videos
+                sectionTitle="인기✨"
+                videos={popularVideos}
+                onSelectVideo={this.handleSelectVideo}
+              />
+            )}
+          </section>
         </main>
       </>
     )

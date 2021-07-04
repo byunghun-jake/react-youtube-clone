@@ -2,14 +2,6 @@ import React, { Component } from "react"
 import RelatedVideos from "./RelatedVideos"
 
 class VideoDetail extends Component {
-  componentDidMount() {
-    window.scrollTo({ behavior: "smooth", top: 0 })
-  }
-
-  componentDidUpdate() {
-    window.scrollTo({ behavior: "smooth", top: 0 })
-  }
-
   render() {
     const { video, popularVideos, onSelectVideo } = this.props
 

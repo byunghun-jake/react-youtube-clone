@@ -14,7 +14,10 @@ const VideoItem = ({ video, onSelectVideo }) => {
         />
       </div>
       <div>
-        <p dangerouslySetInnerHTML={{ __html: video.snippet.title }}></p>
+        <p
+          className="video-item__title"
+          dangerouslySetInnerHTML={{ __html: video.snippet.title }}
+        ></p>
       </div>
     </li>
   )

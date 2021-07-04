@@ -97,6 +97,8 @@ const youtubeAPI = axios.create({
   - [x] Videos
   - [x] VideoItem
   - [x] VideoDetail
+  - [x] RelatedVideos
+  - [x] TheAside
 
 
 
